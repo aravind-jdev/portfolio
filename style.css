@@ -1,7 +1,7 @@
 body {
     margin: 0;
     font-family: Tahoma, sans-serif;
-    background: url("img.jpeg") center/cover no-repeat;
+    background: url("media/img.jpeg") center/cover no-repeat;
     height: 100vh;
     overflow: hidden;
 }
