@@ -2,43 +2,35 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
-        <title>Windows XP Clone</title>
-        <link rel="stylesheet" href="style.css" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Aravind G</title>
+        <link rel="stylesheet" href="css.css" />
     </head>
     <body>
-        <!-- Desktop -->
-        <div id="desktop">
-            <div class="icon" ondblclick="openWindow()">
-                🖥️
-                <span>My Computer</span>
-            </div>
-        </div>
+        <header></header>
 
-        <!-- Taskbar -->
-        <div id="taskbar">
-            <button id="start-btn" onclick="toggleStart()">Start</button>
-            <div id="clock"></div>
-        </div>
+        <main>
+            <section class="ico">
+                <div>
+                    <img src="./media/ThisComputer.png" alt="About Me" />
+                    <p>About Me</p>
+                </div>
 
-        <!-- Start Menu -->
-        <div id="start-menu">
-            <p>📁 Programs</p>
-            <p>⚙️ Settings</p>
-            <p>🔌 Shut Down</p>
-        </div>
+                <div>
+                    <img src="./media/MyDocs.png" alt="My Works" />
+                    <p>My Works</p>
+                </div>
 
-        <!-- Window -->
-        <div id="window">
-            <div id="title-bar">
-                <span>My Computer</span>
-                <button onclick="closeWindow()">X</button>
-            </div>
-            <div id="window-content">
-                Welcome to Windows XP 🌄
-                <br />Memory unlocked.
-            </div>
-        </div>
-
-        <script src="script.js"></script>
+                <div>
+                    <img src="./media/game.png" alt="Contact Me" />
+                    <p>Contact Me</p>
+                </div>
+            </section>
+        </main>
+        <footer class="taskbar">
+            <img src="./media/start-idle.png" />
+            <p id="time"></p>
+        </footer>
     </body>
+    <script src="App.js"></script>
 </html>
