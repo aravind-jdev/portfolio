@@ -4,33 +4,1505 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Aravind G</title>
-        <link rel="stylesheet" href="css.css" />
+        <style>
+            /* Reset and Base */
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                user-select: none;
+            }
+
+            body {
+                font-family: "Tahoma", "Segoe UI", sans-serif;
+                overflow: hidden;
+                height: 100vh;
+                width: 100vw;
+            }
+
+            /* Desktop - Windows XP Bliss Wallpaper */
+            .desktop {
+                width: 100%;
+                height: calc(100% - 30px);
+                background: linear-gradient(
+                    135deg,
+                    #245edc 0%,
+                    #3a8bc2 25%,
+                    #7bc8e8 50%,
+                    #5baf5b 60%,
+                    #4a9f4a 75%,
+                    #3d8f3d 100%
+                );
+                background-image: url("img.jpeg");
+                background-size: cover;
+                background-position: center;
+                position: relative;
+            }
+
+            /* Desktop Icons */
+            .desktop-icons {
+                padding: 20px;
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                position: absolute;
+                top: 0;
+                left: 0;
+            }
+
+            .icon {
+                width: 75px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                padding: 5px;
+                cursor: pointer;
+                border: 1px solid transparent;
+                border-radius: 3px;
+            }
+
+            .icon:hover {
+                background: rgba(11, 97, 255, 0.3);
+                border: 1px dotted rgba(11, 97, 255, 0.8);
+            }
+
+            .icon.selected {
+                background: rgba(11, 97, 255, 0.4);
+                border: 1px dotted #0b61ff;
+            }
+
+            .icon img {
+                width: 48px;
+                height: 48px;
+                margin-bottom: 5px;
+            }
+
+            .icon-img {
+                width: 48px;
+                height: 48px;
+                margin-bottom: 5px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .icon span {
+                color: white;
+                font-size: 11px;
+                text-align: center;
+                text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+                word-wrap: break-word;
+                line-height: 1.2;
+            }
+
+            /* Windows XP Window Style */
+            .window {
+                position: absolute;
+                min-width: 400px;
+                min-height: 300px;
+                background: #ece9d8;
+                border: 1px solid #0054e3;
+                border-radius: 8px 8px 0 0;
+                box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+                display: none;
+                z-index: 100;
+            }
+
+            .window.active {
+                z-index: 200;
+            }
+
+            /* Window Title Bar */
+            .title-bar {
+                background: linear-gradient(
+                    180deg,
+                    #0a246a 0%,
+                    #0f3d9e 8%,
+                    #1665d8 20%,
+                    #0f3d9e 90%,
+                    #0a246a 100%
+                );
+                padding: 4px 6px;
+                border-radius: 6px 6px 0 0;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                cursor: move;
+                height: 30px;
+            }
+
+            .window.active .title-bar {
+                background: linear-gradient(
+                    180deg,
+                    #0a246a 0%,
+                    #1665d8 10%,
+                    #3c8ce7 50%,
+                    #1665d8 90%,
+                    #0a246a 100%
+                );
+            }
+
+            .window:not(.active) .title-bar {
+                background: linear-gradient(
+                    180deg,
+                    #7f9db9 0%,
+                    #9bb5c9 10%,
+                    #b8c7d5 50%,
+                    #9bb5c9 90%,
+                    #7f9db9 100%
+                );
+            }
+
+            .title-bar-text {
+                color: white;
+                font-size: 13px;
+                font-weight: bold;
+                text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+                display: flex;
+                align-items: center;
+                gap: 5px;
+            }
+
+            .title-bar-text img {
+                width: 16px;
+                height: 16px;
+            }
+
+            .title-bar-controls {
+                display: flex;
+                gap: 2px;
+            }
+
+            .title-bar-controls button {
+                width: 21px;
+                height: 21px;
+                border: none;
+                border-radius: 3px;
+                font-size: 12px;
+                font-weight: bold;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background: linear-gradient(
+                    180deg,
+                    #ffffff 0%,
+                    #e3e3e3 45%,
+                    #cfcfcf 50%,
+                    #bcbcbc 100%
+                );
+                color: #000;
+            }
+
+            .title-bar-controls button:hover {
+                background: linear-gradient(
+                    180deg,
+                    #ffffff 0%,
+                    #e8e8e8 45%,
+                    #dfdfdf 50%,
+                    #d0d0d0 100%
+                );
+            }
+
+            .title-bar-controls button:active {
+                background: linear-gradient(
+                    180deg,
+                    #bcbcbc 0%,
+                    #cfcfcf 50%,
+                    #e3e3e3 55%,
+                    #ffffff 100%
+                );
+            }
+
+            .title-bar-controls .close:hover {
+                background: linear-gradient(
+                    180deg,
+                    #ff8080 0%,
+                    #ff6060 45%,
+                    #e04040 50%,
+                    #d03030 100%
+                );
+                color: white;
+            }
+
+            /* Window Menu Bar */
+            .menu-bar {
+                background: #ece9d8;
+                padding: 2px 5px;
+                border-bottom: 1px solid #aca899;
+                font-size: 12px;
+            }
+
+            .menu-bar span {
+                padding: 2px 8px;
+                cursor: pointer;
+            }
+
+            .menu-bar span:hover {
+                background: #316ac5;
+                color: white;
+            }
+
+            /* Window Content */
+            .window-content {
+                padding: 20px;
+                background: white;
+                min-height: 200px;
+                max-height: 400px;
+                overflow-y: auto;
+                font-size: 13px;
+                line-height: 1.6;
+            }
+
+            .window-content h2 {
+                color: #003399;
+                margin-bottom: 15px;
+                font-size: 18px;
+            }
+
+            .window-content h3 {
+                color: #0054e3;
+                margin: 15px 0 10px 0;
+                font-size: 14px;
+            }
+
+            .window-content p {
+                margin-bottom: 10px;
+                color: #333;
+            }
+
+            .window-content ul {
+                margin-left: 20px;
+                margin-bottom: 10px;
+            }
+
+            .window-content a {
+                color: #0066cc;
+            }
+
+            /* Window Status Bar */
+            .status-bar {
+                background: #ece9d8;
+                border-top: 1px solid #aca899;
+                padding: 4px 8px;
+                font-size: 11px;
+                color: #555;
+                display: flex;
+                justify-content: space-between;
+            }
+
+            /* Taskbar */
+            .taskbar {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                height: 30px;
+                background: linear-gradient(
+                    180deg,
+                    #3168d5 0%,
+                    #4e8cd8 3%,
+                    #2456c7 5%,
+                    #1941a3 95%,
+                    #1a3d8f 100%
+                );
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                z-index: 1000;
+            }
+
+            .taskbar-left {
+                display: flex;
+                align-items: center;
+                height: 100%;
+            }
+
+            /* Start Button */
+            .start-button {
+                background: linear-gradient(
+                    180deg,
+                    #5db12f 0%,
+                    #3f9722 20%,
+                    #2d8016 50%,
+                    #297315 80%,
+                    #1e5c0e 100%
+                );
+                border: none;
+                height: 100%;
+                padding: 0 15px 0 8px;
+                color: white;
+                font-size: 13px;
+                font-weight: bold;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                gap: 5px;
+                border-radius: 0 10px 10px 0;
+                text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+                font-style: italic;
+            }
+
+            .start-button:hover {
+                background: linear-gradient(
+                    180deg,
+                    #6fc241 0%,
+                    #4fa830 20%,
+                    #3d9020 50%,
+                    #358328 80%,
+                    #287018 100%
+                );
+            }
+
+            .start-button:active {
+                background: linear-gradient(
+                    180deg,
+                    #1e5c0e 0%,
+                    #297315 20%,
+                    #2d8016 50%,
+                    #3f9722 80%,
+                    #5db12f 100%
+                );
+            }
+
+            .start-button svg {
+                width: 20px;
+                height: 20px;
+            }
+
+            /* Quick Launch */
+            .quick-launch {
+                display: flex;
+                align-items: center;
+                padding: 0 8px;
+                height: 100%;
+                border-left: 1px solid #18378f;
+                border-right: 1px solid #4c86d8;
+            }
+
+            /* Taskbar Windows */
+            .taskbar-windows {
+                display: flex;
+                align-items: center;
+                flex-grow: 1;
+                padding: 0 5px;
+                gap: 3px;
+                height: 100%;
+            }
+
+            .taskbar-item {
+                background: linear-gradient(
+                    180deg,
+                    #3d79d8 0%,
+                    #2d6acf 10%,
+                    #255eb6 50%,
+                    #245fac 90%,
+                    #1e4e95 100%
+                );
+                border: none;
+                height: 22px;
+                padding: 0 10px;
+                color: white;
+                font-size: 11px;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                gap: 5px;
+                border-radius: 2px;
+                min-width: 150px;
+                max-width: 200px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+
+            .taskbar-item.active {
+                background: linear-gradient(
+                    180deg,
+                    #1e4e95 0%,
+                    #245fac 10%,
+                    #255eb6 50%,
+                    #2d6acf 90%,
+                    #3d79d8 100%
+                );
+                box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.3);
+            }
+
+            .taskbar-item img {
+                width: 16px;
+                height: 16px;
+            }
+
+            /* System Tray */
+            .system-tray {
+                background: linear-gradient(
+                    180deg,
+                    #0f8aee 0%,
+                    #0c72cb 50%,
+                    #0860a8 100%
+                );
+                height: 100%;
+                display: flex;
+                align-items: center;
+                padding: 0 10px;
+                gap: 8px;
+                border-left: 1px solid #18378f;
+            }
+
+            .system-tray svg {
+                width: 16px;
+                height: 16px;
+                fill: white;
+            }
+
+            .clock {
+                color: white;
+                font-size: 11px;
+                font-weight: bold;
+                padding: 0 8px;
+            }
+
+            /* Start Menu */
+            .start-menu {
+                position: fixed;
+                bottom: 30px;
+                left: 0;
+                width: 380px;
+                background: linear-gradient(180deg, #0f6fd8 0%, #0856ae 100%);
+                border: 2px solid #0054e3;
+                border-radius: 8px 8px 0 0;
+                display: none;
+                z-index: 1001;
+                box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.4);
+            }
+
+            .start-menu.show {
+                display: block;
+            }
+
+            .start-menu-header {
+                background: linear-gradient(180deg, #295dc7 0%, #1845a3 100%);
+                padding: 8px 10px;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                border-radius: 6px 6px 0 0;
+            }
+
+            .user-avatar {
+                width: 48px;
+                height: 48px;
+                border-radius: 4px;
+                background: linear-gradient(
+                    135deg,
+                    #7ac5ff 0%,
+                    #3498db 50%,
+                    #2980b9 100%
+                );
+                border: 2px solid white;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .user-avatar svg {
+                width: 32px;
+                height: 32px;
+                fill: white;
+            }
+
+            .user-name {
+                color: white;
+                font-size: 14px;
+                font-weight: bold;
+                text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+            }
+
+            .start-menu-content {
+                display: flex;
+                background: white;
+            }
+
+            .start-menu-left {
+                width: 190px;
+                padding: 10px 5px;
+                border-right: 1px solid #d6d6d6;
+            }
+
+            .start-menu-right {
+                width: 190px;
+                padding: 10px 5px;
+                background: #d6e5f7;
+            }
+
+            .menu-item {
+                display: flex;
+                align-items: center;
+                padding: 6px 10px;
+                cursor: pointer;
+                gap: 8px;
+                font-size: 12px;
+                color: #333;
+                border-radius: 3px;
+            }
+
+            .menu-item:hover {
+                background: #316ac5;
+                color: white;
+            }
+
+            .menu-item svg,
+            .menu-item img {
+                width: 24px;
+                height: 24px;
+            }
+
+            .menu-separator {
+                height: 1px;
+                background: #d6d6d6;
+                margin: 5px 10px;
+            }
+
+            .start-menu-footer {
+                display: flex;
+                justify-content: flex-end;
+                padding: 8px;
+                background: linear-gradient(180deg, #3272d6 0%, #0854ad 100%);
+                gap: 5px;
+            }
+
+            .footer-btn {
+                background: linear-gradient(
+                    180deg,
+                    #5b9bd5 0%,
+                    #2567b2 50%,
+                    #1d4f91 100%
+                );
+                border: 1px solid #1d4f91;
+                color: white;
+                padding: 5px 15px;
+                font-size: 11px;
+                cursor: pointer;
+                border-radius: 3px;
+            }
+
+            .footer-btn:hover {
+                background: linear-gradient(
+                    180deg,
+                    #6babf5 0%,
+                    #3577c2 50%,
+                    #2d5fa1 100%
+                );
+            }
+
+            /* SVG Icons */
+            .svg-icon {
+                width: 48px;
+                height: 48px;
+            }
+
+            /* Project Items */
+            .project-item {
+                background: #f5f5f5;
+                border: 1px solid #ddd;
+                padding: 15px;
+                margin-bottom: 15px;
+                border-radius: 4px;
+            }
+
+            .project-item h3 {
+                margin-top: 0 !important;
+            }
+
+            /* Contact Links */
+            .contact-links {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .contact-link {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                padding: 10px;
+                background: #f0f7ff;
+                border: 1px solid #cce0ff;
+                border-radius: 4px;
+                text-decoration: none;
+                color: #0066cc;
+            }
+
+            .contact-link:hover {
+                background: #e0efff;
+            }
+
+            .contact-link svg {
+                width: 24px;
+                height: 24px;
+            }
+        </style>
     </head>
     <body>
-        <header></header>
-
-        <main>
-            <section class="ico">
-                <div>
-                    <img src="./media/ThisComputer.png" alt="About Me" />
-                    <p>About Me</p>
+        <!-- Desktop Area -->
+        <div class="desktop" id="desktop">
+            <!-- Desktop Icons -->
+            <div class="desktop-icons">
+                <!-- About Me Icon (My Computer style) -->
+                <div
+                    class="icon"
+                    ondblclick="openWindow('about')"
+                    onclick="selectIcon(this)"
+                >
+                    <div class="icon-img">
+                        <svg viewBox="0 0 48 48" class="svg-icon">
+                            <rect
+                                x="4"
+                                y="12"
+                                width="40"
+                                height="28"
+                                rx="2"
+                                fill="#C8C8C8"
+                                stroke="#333"
+                                stroke-width="2"
+                            />
+                            <rect
+                                x="8"
+                                y="16"
+                                width="32"
+                                height="20"
+                                fill="#1A5276"
+                            />
+                            <rect
+                                x="18"
+                                y="40"
+                                width="12"
+                                height="4"
+                                fill="#AAA"
+                            />
+                            <rect
+                                x="12"
+                                y="44"
+                                width="24"
+                                height="3"
+                                fill="#888"
+                            />
+                            <circle cx="24" cy="26" r="6" fill="#3498DB" />
+                            <rect
+                                x="22"
+                                y="22"
+                                width="4"
+                                height="8"
+                                fill="#FFF"
+                            />
+                        </svg>
+                    </div>
+                    <span>About Me</span>
                 </div>
 
-                <div>
-                    <img src="./media/MyDocs.png" alt="My Works" />
-                    <p>My Works</p>
+                <!-- My Works Icon (Documents style) -->
+                <div
+                    class="icon"
+                    ondblclick="openWindow('works')"
+                    onclick="selectIcon(this)"
+                >
+                    <div class="icon-img">
+                        <svg viewBox="0 0 48 48" class="svg-icon">
+                            <path
+                                d="M4 14 L4 42 L44 42 L44 14 L24 14 L20 8 L4 8 Z"
+                                fill="#F4D03F"
+                                stroke="#B7950B"
+                                stroke-width="2"
+                            />
+                            <path
+                                d="M4 14 L44 14 L44 42 L4 42 Z"
+                                fill="#F7DC6F"
+                            />
+                            <rect
+                                x="10"
+                                y="20"
+                                width="28"
+                                height="3"
+                                fill="#FFF"
+                                opacity="0.5"
+                            />
+                        </svg>
+                    </div>
+                    <span>My Works</span>
                 </div>
 
-                <div>
-                    <img src="./media/game.png" alt="Contact Me" />
-                    <p>Contact Me</p>
+                <!-- Contact Me Icon -->
+                <div
+                    class="icon"
+                    ondblclick="openWindow('contact')"
+                    onclick="selectIcon(this)"
+                >
+                    <div class="icon-img">
+                        <svg viewBox="0 0 48 48" class="svg-icon">
+                            <rect
+                                x="4"
+                                y="12"
+                                width="40"
+                                height="28"
+                                rx="2"
+                                fill="#E8E8E8"
+                                stroke="#888"
+                                stroke-width="2"
+                            />
+                            <path
+                                d="M4 14 L24 28 L44 14"
+                                fill="none"
+                                stroke="#2980B9"
+                                stroke-width="2"
+                            />
+                            <path
+                                d="M4 40 L18 26"
+                                fill="none"
+                                stroke="#2980B9"
+                                stroke-width="1.5"
+                            />
+                            <path
+                                d="M44 40 L30 26"
+                                fill="none"
+                                stroke="#2980B9"
+                                stroke-width="1.5"
+                            />
+                            <rect
+                                x="8"
+                                y="16"
+                                width="32"
+                                height="20"
+                                fill="#FFF"
+                                opacity="0.8"
+                            />
+                            <path
+                                d="M4 14 L24 28 L44 14"
+                                fill="none"
+                                stroke="#3498DB"
+                                stroke-width="2"
+                            />
+                        </svg>
+                    </div>
+                    <span>Contact Me</span>
                 </div>
-            </section>
-        </main>
-        <footer class="taskbar">
-            <img src="./media/start-idle.png" />
-            <p id="time"></p>
-        </footer>
+            </div>
+
+            <!-- Windows -->
+            <!-- About Me Window -->
+            <div
+                class="window"
+                id="window-about"
+                style="left: 100px; top: 50px; width: 500px"
+            >
+                <div
+                    class="title-bar"
+                    onmousedown="startDrag(event, 'window-about')"
+                >
+                    <div class="title-bar-text">
+                        <svg viewBox="0 0 16 16" width="16" height="16">
+                            <rect
+                                x="1"
+                                y="4"
+                                width="14"
+                                height="10"
+                                rx="1"
+                                fill="#C8C8C8"
+                                stroke="#333"
+                                stroke-width="0.5"
+                            />
+                            <rect
+                                x="3"
+                                y="6"
+                                width="10"
+                                height="6"
+                                fill="#1A5276"
+                            />
+                        </svg>
+                        About Me
+                    </div>
+                    <div class="title-bar-controls">
+                        <button onclick="minimizeWindow('about')">_</button>
+                        <button onclick="maximizeWindow('about')">☐</button>
+                        <button class="close" onclick="closeWindow('about')">
+                            ✕
+                        </button>
+                    </div>
+                </div>
+                <div class="menu-bar">
+                    <span>File</span>
+                    <span>Edit</span>
+                    <span>View</span>
+                    <span>Help</span>
+                </div>
+                <div class="window-content">
+                    <h2>👋 Hello, I'm Aravind G!</h2>
+                    <p>
+                        Welcome to my portfolio website! I'm a passionate
+                        developer/designer based in Chennai.
+                    </p>
+
+                    <h3>🎯 About Me</h3>
+                    <p>
+                        I specialize in creating beautiful, functional websites
+                        and applications. With 0 years of experience in the
+                        industry, I've worked on numerous projects ranging from
+                        small business websites to large-scale web applications.
+                    </p>
+
+                    <h3>💻 Skills</h3>
+                    <ul>
+                        <li>HTML5, CSS3, JavaScript</li>
+                        <li>React, Vue.js, Angular</li>
+                        <li>Node.js, Python, PHP</li>
+                        <li>UI/UX Design</li>
+                        <li>Database Management</li>
+                    </ul>
+
+                    <h3>🎓 Education</h3>
+                    <p>
+                        B.Tech IT from Sri Sairam Institute of Technology, IIIrd
+                        Year
+                    </p>
+
+                    <h3>🌟 Fun Facts</h3>
+                    <ul>
+                        <li>I love retro computing aesthetics (obviously!)</li>
+                        <li>I Love Watching Movies</li>
+                        <li>I Love Playing Games</li>
+                        <li>I Love Reading Books</li>
+                    </ul>
+                </div>
+                <div class="status-bar">
+                    <span>About Me</span>
+                    <span>System Properties</span>
+                </div>
+            </div>
+
+            <!-- My Works Window -->
+            <div
+                class="window"
+                id="window-works"
+                style="left: 150px; top: 80px; width: 550px"
+            >
+                <div
+                    class="title-bar"
+                    onmousedown="startDrag(event, 'window-works')"
+                >
+                    <div class="title-bar-text">
+                        <svg viewBox="0 0 16 16" width="16" height="16">
+                            <path
+                                d="M1 5 L1 14 L15 14 L15 5 L8 5 L7 3 L1 3 Z"
+                                fill="#F4D03F"
+                                stroke="#B7950B"
+                                stroke-width="0.5"
+                            />
+                        </svg>
+                        My Works
+                    </div>
+                    <div class="title-bar-controls">
+                        <button onclick="minimizeWindow('works')">_</button>
+                        <button onclick="maximizeWindow('works')">☐</button>
+                        <button class="close" onclick="closeWindow('works')">
+                            ✕
+                        </button>
+                    </div>
+                </div>
+                <div class="menu-bar">
+                    <span>File</span>
+                    <span>Edit</span>
+                    <span>View</span>
+                    <span>Favorites</span>
+                    <span>Tools</span>
+                    <span>Help</span>
+                </div>
+                <div class="window-content">
+                    <h2>📁 My Projects</h2>
+
+                    <div class="project-item">
+                        <h3>🚀 Project One</h3>
+                        <p>
+                            Description of your first project. Explain what it
+                            does, technologies used, and your role.
+                        </p>
+                        <p>
+                            <strong>Technologies:</strong> React, Node.js,
+                            MongoDB
+                        </p>
+                        <a href="#" target="_blank">View Project →</a>
+                    </div>
+
+                    <div class="project-item">
+                        <h3>🎨 Project Two</h3>
+                        <p>
+                            Description of your second project. Highlight the
+                            challenges you solved.
+                        </p>
+                        <p>
+                            <strong>Technologies:</strong> Vue.js, Firebase,
+                            Tailwind CSS
+                        </p>
+                        <a href="#" target="_blank">View Project →</a>
+                    </div>
+
+                    <div class="project-item">
+                        <h3>⚡ Project Three</h3>
+                        <p>
+                            Description of your third project. Mention any
+                            achievements or metrics.
+                        </p>
+                        <p>
+                            <strong>Technologies:</strong> Python, Django,
+                            PostgreSQL
+                        </p>
+                        <a href="#" target="_blank">View Project →</a>
+                    </div>
+
+                    <div class="project-item">
+                        <h3>🔧 Project Four</h3>
+                        <p>Add more projects as needed!</p>
+                        <p>
+                            <strong>Technologies:</strong> Add technologies here
+                        </p>
+                        <a href="#" target="_blank">View Project →</a>
+                    </div>
+                </div>
+                <div class="status-bar">
+                    <span>4 objects</span>
+                    <span>My Documents</span>
+                </div>
+            </div>
+
+            <!-- Contact Me Window -->
+            <div
+                class="window"
+                id="window-contact"
+                style="left: 200px; top: 110px; width: 450px"
+            >
+                <div
+                    class="title-bar"
+                    onmousedown="startDrag(event, 'window-contact')"
+                >
+                    <div class="title-bar-text">
+                        <svg viewBox="0 0 16 16" width="16" height="16">
+                            <rect
+                                x="1"
+                                y="4"
+                                width="14"
+                                height="10"
+                                rx="1"
+                                fill="#E8E8E8"
+                                stroke="#888"
+                                stroke-width="0.5"
+                            />
+                            <path
+                                d="M1 5 L8 10 L15 5"
+                                fill="none"
+                                stroke="#3498DB"
+                                stroke-width="1"
+                            />
+                        </svg>
+                        Contact Me
+                    </div>
+                    <div class="title-bar-controls">
+                        <button onclick="minimizeWindow('contact')">_</button>
+                        <button onclick="maximizeWindow('contact')">☐</button>
+                        <button class="close" onclick="closeWindow('contact')">
+                            ✕
+                        </button>
+                    </div>
+                </div>
+                <div class="menu-bar">
+                    <span>File</span>
+                    <span>Edit</span>
+                    <span>View</span>
+                    <span>Help</span>
+                </div>
+                <div class="window-content">
+                    <h2>📬 Get In Touch</h2>
+                    <p>
+                        I'd love to hear from you! Feel free to reach out
+                        through any of the channels below.
+                    </p>
+
+                    <div class="contact-links">
+                        <a
+                            href="mailto:aravind18l15@gmail.com"
+                            class="contact-link"
+                        >
+                            <svg viewBox="0 0 24 24" fill="#E74C3C">
+                                <path
+                                    d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"
+                                />
+                            </svg>
+                            <span>aravind18l15@gmail.com</span>
+                        </a>
+
+                        <a
+                            href="https://github.com/aravind-jdev"
+                            target="_blank"
+                            class="contact-link"
+                        >
+                            <svg viewBox="0 0 24 24" fill="#333">
+                                <path
+                                    d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"
+                                />
+                            </svg>
+                            <span>github.com/aravind-jdev</span>
+                        </a>
+
+                        <a
+                            href="https://linkedin.com/in/aravind-ln"
+                            target="_blank"
+                            class="contact-link"
+                        >
+                            <svg viewBox="0 0 24 24" fill="#0077B5">
+                                <path
+                                    d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"
+                                />
+                            </svg>
+                            <span>linkedin.com/in/aravind-ln</span>
+                        </a>
+
+                        <a
+                            href="https://twitter.com/AravindG_X"
+                            target="_blank"
+                            class="contact-link"
+                        >
+                            <svg viewBox="0 0 24 24" fill="#1DA1F2">
+                                <path
+                                    d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"
+                                />
+                            </svg>
+                            <span>twitter.com/AravindG_X</span>
+                        </a>
+                    </div>
+
+                    <h3 style="margin-top: 20px">📍 Location</h3>
+                    <p>Chennai, India</p>
+                </div>
+                <div class="status-bar">
+                    <span>Contact Information</span>
+                    <span>Ready</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Taskbar -->
+        <div class="taskbar">
+            <div class="taskbar-left">
+                <button class="start-button" onclick="toggleStartMenu()">
+                    <svg viewBox="0 0 24 24" width="20" height="20">
+                        <rect
+                            x="1"
+                            y="1"
+                            width="10"
+                            height="10"
+                            fill="#F35325"
+                        />
+                        <rect
+                            x="13"
+                            y="1"
+                            width="10"
+                            height="10"
+                            fill="#81BC06"
+                        />
+                        <rect
+                            x="1"
+                            y="13"
+                            width="10"
+                            height="10"
+                            fill="#05A6F0"
+                        />
+                        <rect
+                            x="13"
+                            y="13"
+                            width="10"
+                            height="10"
+                            fill="#FFBA08"
+                        />
+                    </svg>
+                    start
+                </button>
+                <div class="quick-launch"></div>
+            </div>
+
+            <div class="taskbar-windows" id="taskbar-windows">
+                <!-- Taskbar items will be added dynamically -->
+            </div>
+
+            <div class="system-tray">
+                <svg viewBox="0 0 24 24">
+                    <path
+                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"
+                        fill="white"
+                    />
+                </svg>
+                <svg viewBox="0 0 24 24">
+                    <path
+                        d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"
+                        fill="#FFD700"
+                    />
+                </svg>
+                <div class="clock" id="clock">12:00 PM</div>
+            </div>
+        </div>
+
+        <!-- Start Menu -->
+        <div class="start-menu" id="start-menu">
+            <div class="start-menu-header">
+                <div class="user-avatar">
+                    <svg viewBox="0 0 24 24">
+                        <circle cx="12" cy="8" r="4" />
+                        <path d="M12 14c-4 0-8 2-8 4v2h16v-2c0-2-4-4-8-4z" />
+                    </svg>
+                </div>
+                <div class="user-name">Aravind G</div>
+            </div>
+            <div class="start-menu-content">
+                <div class="start-menu-left">
+                    <div
+                        class="menu-item"
+                        onclick="
+                            openWindow('about');
+                            toggleStartMenu();
+                        "
+                    >
+                        <svg viewBox="0 0 24 24" fill="#0078D7">
+                            <rect
+                                x="2"
+                                y="6"
+                                width="20"
+                                height="14"
+                                rx="1"
+                                fill="#C8C8C8"
+                            />
+                            <rect
+                                x="4"
+                                y="8"
+                                width="16"
+                                height="10"
+                                fill="#1A5276"
+                            />
+                        </svg>
+                        <span>About Me</span>
+                    </div>
+                    <div
+                        class="menu-item"
+                        onclick="
+                            openWindow('works');
+                            toggleStartMenu();
+                        "
+                    >
+                        <svg viewBox="0 0 24 24">
+                            <path
+                                d="M2 7 L2 20 L22 20 L22 7 L12 7 L10 4 L2 4 Z"
+                                fill="#F4D03F"
+                            />
+                        </svg>
+                        <span>My Works</span>
+                    </div>
+                    <div
+                        class="menu-item"
+                        onclick="
+                            openWindow('contact');
+                            toggleStartMenu();
+                        "
+                    >
+                        <svg viewBox="0 0 24 24">
+                            <rect
+                                x="2"
+                                y="5"
+                                width="20"
+                                height="14"
+                                rx="1"
+                                fill="#E8E8E8"
+                            />
+                            <path
+                                d="M2 6 L12 13 L22 6"
+                                fill="none"
+                                stroke="#3498DB"
+                                stroke-width="1.5"
+                            />
+                        </svg>
+                        <span>Contact Me</span>
+                    </div>
+                    <div class="menu-separator"></div>
+                    <div class="menu-item">
+                        <svg viewBox="0 0 24 24" fill="#333">
+                            <circle cx="12" cy="12" r="10" fill="#E8E8E8" />
+                            <text
+                                x="12"
+                                y="16"
+                                text-anchor="middle"
+                                font-size="10"
+                                fill="#333"
+                            >
+                                ?
+                            </text>
+                        </svg>
+                        <span>Help and Support</span>
+                    </div>
+                </div>
+                <div class="start-menu-right">
+                    <div class="menu-item">
+                        <svg viewBox="0 0 24 24">
+                            <path
+                                d="M2 7 L2 20 L22 20 L22 7 L12 7 L10 4 L2 4 Z"
+                                fill="#F4D03F"
+                            />
+                        </svg>
+                        <span>My Documents</span>
+                    </div>
+                    <div class="menu-item">
+                        <svg viewBox="0 0 24 24">
+                            <rect
+                                x="3"
+                                y="3"
+                                width="18"
+                                height="18"
+                                rx="2"
+                                fill="#96C"
+                            />
+                            <rect
+                                x="6"
+                                y="10"
+                                width="12"
+                                height="8"
+                                fill="#FFF"
+                            />
+                        </svg>
+                        <span>My Pictures</span>
+                    </div>
+                    <div class="menu-item">
+                        <svg viewBox="0 0 24 24">
+                            <circle cx="12" cy="12" r="9" fill="#888" />
+                            <circle cx="12" cy="12" r="3" fill="#333" />
+                        </svg>
+                        <span>My Music</span>
+                    </div>
+                    <div class="menu-separator"></div>
+                    <div class="menu-item">
+                        <svg viewBox="0 0 24 24">
+                            <rect
+                                x="2"
+                                y="6"
+                                width="20"
+                                height="14"
+                                rx="1"
+                                fill="#C8C8C8"
+                            />
+                            <rect
+                                x="4"
+                                y="8"
+                                width="16"
+                                height="10"
+                                fill="#1A5276"
+                            />
+                        </svg>
+                        <span>My Computer</span>
+                    </div>
+                    <div class="menu-item">
+                        <svg viewBox="0 0 24 24" fill="#555">
+                            <path
+                                d="M19.14 12.94c.04-.31.06-.63.06-.94 0-.31-.02-.63-.06-.94l2.03-1.58a.49.49 0 00.12-.61l-1.92-3.32a.488.488 0 00-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54a.484.484 0 00-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.04.31-.06.63-.06.94s.02.63.06.94l-2.03 1.58a.49.49 0 00-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"
+                            />
+                        </svg>
+                        <span>Control Panel</span>
+                    </div>
+                </div>
+            </div>
+            <div class="start-menu-footer">
+                <button class="footer-btn">🔒 Log Off</button>
+                <button class="footer-btn">⏻ Shut Down</button>
+            </div>
+        </div>
+
+        <script>
+            // Clock Update
+            function updateClock() {
+                const now = new Date();
+                let hours = now.getHours();
+                const minutes = now.getMinutes().toString().padStart(2, "0");
+                const ampm = hours >= 12 ? "PM" : "AM";
+                hours = hours % 12;
+                hours = hours ? hours : 12;
+                document.getElementById("clock").textContent =
+                    `${hours}:${minutes} ${ampm}`;
+            }
+            updateClock();
+            setInterval(updateClock, 1000);
+
+            // Window Management
+            let activeWindow = null;
+            let windowZIndex = 100;
+            let openWindows = {};
+
+            function openWindow(name) {
+                const windowEl = document.getElementById(`window-${name}`);
+                windowEl.style.display = "block";
+                bringToFront(name);
+                openWindows[name] = true;
+                updateTaskbar();
+            }
+
+            function closeWindow(name) {
+                const windowEl = document.getElementById(`window-${name}`);
+                windowEl.style.display = "none";
+                delete openWindows[name];
+                updateTaskbar();
+            }
+
+            function minimizeWindow(name) {
+                const windowEl = document.getElementById(`window-${name}`);
+                windowEl.style.display = "none";
+            }
+
+            function maximizeWindow(name) {
+                const windowEl = document.getElementById(`window-${name}`);
+                if (windowEl.dataset.maximized === "true") {
+                    // Restore
+                    windowEl.style.left = windowEl.dataset.prevLeft;
+                    windowEl.style.top = windowEl.dataset.prevTop;
+                    windowEl.style.width = windowEl.dataset.prevWidth;
+                    windowEl.style.height = windowEl.dataset.prevHeight;
+                    windowEl.dataset.maximized = "false";
+                } else {
+                    // Maximize
+                    windowEl.dataset.prevLeft = windowEl.style.left;
+                    windowEl.dataset.prevTop = windowEl.style.top;
+                    windowEl.dataset.prevWidth = windowEl.style.width;
+                    windowEl.dataset.prevHeight = windowEl.style.height;
+                    windowEl.style.left = "0";
+                    windowEl.style.top = "0";
+                    windowEl.style.width = "100%";
+                    windowEl.style.height = "calc(100vh - 30px)";
+                    windowEl.dataset.maximized = "true";
+                }
+            }
+
+            function bringToFront(name) {
+                // Remove active class from all windows
+                document
+                    .querySelectorAll(".window")
+                    .forEach((w) => w.classList.remove("active"));
+                // Add active class to current window
+                const windowEl = document.getElementById(`window-${name}`);
+                windowEl.classList.add("active");
+                windowZIndex++;
+                windowEl.style.zIndex = windowZIndex;
+                activeWindow = name;
+                updateTaskbar();
+            }
+
+            // Drag functionality
+            let isDragging = false;
+            let dragWindow = null;
+            let dragOffsetX = 0;
+            let dragOffsetY = 0;
+
+            function startDrag(e, windowId) {
+                isDragging = true;
+                dragWindow = document.getElementById(windowId);
+                const rect = dragWindow.getBoundingClientRect();
+                dragOffsetX = e.clientX - rect.left;
+                dragOffsetY = e.clientY - rect.top;
+                bringToFront(windowId.replace("window-", ""));
+            }
+
+            document.addEventListener("mousemove", function (e) {
+                if (isDragging && dragWindow) {
+                    dragWindow.style.left = e.clientX - dragOffsetX + "px";
+                    dragWindow.style.top = e.clientY - dragOffsetY + "px";
+                }
+            });
+
+            document.addEventListener("mouseup", function () {
+                isDragging = false;
+                dragWindow = null;
+            });
+
+            // Taskbar
+            function updateTaskbar() {
+                const taskbarWindows =
+                    document.getElementById("taskbar-windows");
+                taskbarWindows.innerHTML = "";
+
+                for (const name in openWindows) {
+                    const item = document.createElement("button");
+                    item.className =
+                        "taskbar-item" +
+                        (activeWindow === name ? " active" : "");
+
+                    let icon = "";
+                    let title = "";
+                    switch (name) {
+                        case "about":
+                            title = "About Me";
+                            icon = `<svg viewBox="0 0 16 16" width="16" height="16"><rect x="1" y="4" width="14" height="10" rx="1" fill="#C8C8C8"/><rect x="3" y="6" width="10" height="6" fill="#1A5276"/></svg>`;
+                            break;
+                        case "works":
+                            title = "My Works";
+                            icon = `<svg viewBox="0 0 16 16" width="16" height="16"><path d="M1 5 L1 14 L15 14 L15 5 L8 5 L7 3 L1 3 Z" fill="#F4D03F"/></svg>`;
+                            break;
+                        case "contact":
+                            title = "Contact Me";
+                            icon = `<svg viewBox="0 0 16 16" width="16" height="16"><rect x="1" y="4" width="14" height="10" rx="1" fill="#E8E8E8"/><path d="M1 5 L8 10 L15 5" fill="none" stroke="#3498DB" stroke-width="1"/></svg>`;
+                            break;
+                    }
+
+                    item.innerHTML = icon + title;
+                    item.onclick = function () {
+                        const windowEl = document.getElementById(
+                            `window-${name}`,
+                        );
+                        if (windowEl.style.display === "none") {
+                            windowEl.style.display = "block";
+                        }
+                        bringToFront(name);
+                    };
+                    taskbarWindows.appendChild(item);
+                }
+            }
+
+            // Start Menu
+            function toggleStartMenu() {
+                const startMenu = document.getElementById("start-menu");
+                startMenu.classList.toggle("show");
+            }
+
+            // Close start menu when clicking elsewhere
+            document.addEventListener("click", function (e) {
+                const startMenu = document.getElementById("start-menu");
+                const startButton = document.querySelector(".start-button");
+                if (
+                    !startMenu.contains(e.target) &&
+                    !startButton.contains(e.target)
+                ) {
+                    startMenu.classList.remove("show");
+                }
+            });
+
+            // Desktop icon selection
+            function selectIcon(iconEl) {
+                document
+                    .querySelectorAll(".icon")
+                    .forEach((i) => i.classList.remove("selected"));
+                iconEl.classList.add("selected");
+            }
+
+            // Click on desktop to deselect icons
+            document
+                .getElementById("desktop")
+                .addEventListener("click", function (e) {
+                    if (
+                        e.target === this ||
+                        e.target.classList.contains("desktop-icons")
+                    ) {
+                        document
+                            .querySelectorAll(".icon")
+                            .forEach((i) => i.classList.remove("selected"));
+                    }
+                });
+        </script>
     </body>
-    <script src="App.js"></script>
 </html>
