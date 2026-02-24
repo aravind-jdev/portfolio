@@ -495,6 +495,7 @@
             </div>
 
             <div class="system-tray">
+                <button id="music-toggle" class="music-btn">🔇</button>
                 <svg viewBox="0 0 24 24">
                     <path
                         d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"
@@ -681,5 +682,36 @@
             </div>
         </div>
         <script src="script.js"></script>
+        <audio
+            id="sound-startup"
+            src="assets/sounds/xp-startup.wav"
+            preload="auto"
+        ></audio>
+        <audio
+            id="sound-click"
+            src="assets/sounds/xp-click.wav"
+            preload="auto"
+        ></audio>
+        <audio
+            id="sound-open"
+            src="assets/sounds/xp-open.wav"
+            preload="auto"
+        ></audio>
+        <audio
+            id="sound-close"
+            src="assets/sounds/xp-close.wav"
+            preload="auto"
+        ></audio>
+        <audio
+            id="sound-minimize"
+            src="assets/sounds/xp-minimize.wav"
+            preload="auto"
+        ></audio>
+        <audio
+            id="bg-music"
+            src="assets/sounds/xp-music.mp3"
+            loop
+            preload="auto"
+        ></audio>
     </body>
 </html>

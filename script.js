@@ -11,6 +11,25 @@ function updateClock() {
 updateClock();
 setInterval(updateClock, 1000);
 
+function playSound(id) {
+  const sound = document.getElementById(id);
+  if (!sound) return;
+
+  sound.currentTime = 0; // allow rapid replay
+  sound.play().catch(() => {
+    // Autoplay blocked — ignore silently
+  });
+}
+
+let firstInteraction = false;
+
+document.addEventListener("click", () => {
+  if (!firstInteraction) {
+    playSound("sound-startup");
+    firstInteraction = true;
+  }
+});
+
 // Window Management
 let activeWindow = null;
 let windowZIndex = 100;
@@ -22,6 +41,7 @@ function openWindow(name) {
   bringToFront(name);
   openWindows[name] = true;
   updateTaskbar();
+  playSound("sound-open");
 }
 
 function closeWindow(name) {
@@ -29,11 +49,13 @@ function closeWindow(name) {
   windowEl.style.display = "none";
   delete openWindows[name];
   updateTaskbar();
+  playSound("sound-close");
 }
 
 function minimizeWindow(name) {
   const windowEl = document.getElementById(`window-${name}`);
   windowEl.style.display = "none";
+  playSound("sound-minimize");
 }
 
 function maximizeWindow(name) {
@@ -168,4 +190,48 @@ document.getElementById("desktop").addEventListener("click", function (e) {
       .querySelectorAll(".icon")
       .forEach((i) => i.classList.remove("selected"));
   }
+});
+
+document.querySelectorAll("button, .icon, .menu-item").forEach((el) => {
+  el.addEventListener("click", () => {
+    playSound("sound-click");
+  });
+});
+
+document
+  .querySelector(".footer-btn:last-child")
+  .addEventListener("click", () => {
+    playSound("sound-close");
+  });
+
+document.addEventListener("DOMContentLoaded", () => {
+  const bgMusic = document.getElementById("bg-music");
+  const musicToggle = document.getElementById("music-toggle");
+
+  if (!bgMusic || !musicToggle) return;
+
+  let musicEnabled = false;
+
+  // Restore state
+  if (localStorage.getItem("musicEnabled") === "true") {
+    musicEnabled = true;
+    bgMusic.volume = 0.4;
+    bgMusic.play().catch(() => {});
+    musicToggle.textContent = "🔊";
+  }
+
+  musicToggle.addEventListener("click", () => {
+    musicEnabled = !musicEnabled;
+
+    if (musicEnabled) {
+      bgMusic.volume = 0.4;
+      bgMusic.play().catch(() => {});
+      musicToggle.textContent = "🔊";
+      localStorage.setItem("musicEnabled", "true");
+    } else {
+      bgMusic.pause();
+      musicToggle.textContent = "🔇";
+      localStorage.setItem("musicEnabled", "false");
+    }
+  });
 });

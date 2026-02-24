@@ -271,6 +271,7 @@ body {
 
 .window-content a {
     color: #0066cc;
+    user-select: text;
 }
 
 /* Window Status Bar */
@@ -613,4 +614,73 @@ body {
 .contact-link svg {
     width: 24px;
     height: 24px;
+}
+
+a,
+button,
+.icon {
+    cursor: url("./assets/cursors/pointer.cur"), pointer;
+}
+
+.window-content {
+    cursor: url("./assets/cursors/text.cur"), text;
+}
+
+.title-bar {
+    cursor: url("./assets/cursors/move.cur"), move;
+}
+
+/* Default Arrow Cursor Everywhere */
+html,
+body {
+    cursor: url("./assets/cursors/arrow.cur"), auto;
+}
+
+/* Buttons, clickable items */
+button,
+.start-button,
+.menu-item,
+.title-bar-controls button,
+.icon,
+.taskbar-item,
+.menu-bar span {
+    cursor: url("./assets/cursors/pointer.cur"), pointer;
+}
+
+/* Text areas */
+.window-content,
+.window-content p,
+.window-content h2,
+.window-content h3,
+.window-content li,
+.window-content span {
+    cursor: url("./assets/cursors/text.cur"), text;
+}
+
+.window {
+    animation: fadeIn 0.15s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        transform: scale(0.95);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.music-btn {
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 14px;
+    cursor: url("./assets/cursors/pointer.cur"), pointer;
+    padding: 0 5px;
+}
+
+.music-btn:hover {
+    transform: scale(1.1);
 }
