@@ -23,13 +23,6 @@ function playSound(id) {
 
 let firstInteraction = false;
 
-document.addEventListener("click", () => {
-  if (!firstInteraction) {
-    playSound("sound-startup");
-    firstInteraction = true;
-  }
-});
-
 // Window Management
 let activeWindow = null;
 let windowZIndex = 100;
