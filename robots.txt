@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+# Optional: block unnecessary folders (if they exist)
+# Disallow: /admin/
+# Disallow: /private/
+# Disallow: /api/
+
+Sitemap: https://aravindg.me/sitemap.xml
