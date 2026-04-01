@@ -684,3 +684,81 @@ button,
 .music-btn:hover {
     transform: scale(1.1);
 }
+
+/* Responsive Media Queries */
+
+/* Tablet & Mobile */
+@media screen and (max-width: 768px) {
+    /* Make windows full-screen */
+    .window {
+        width: 100% !important;
+        height: calc(100vh - 30px) !important;
+        top: 0 !important;
+        left: 0 !important;
+        min-width: 0 !important;
+        max-width: none !important;
+        border-radius: 0 !important;
+    }
+
+    /* Maximize window content area */
+    .window-content {
+        max-height: calc(100vh - 110px) !important;
+        height: calc(100vh - 110px) !important;
+    }
+
+    /* Hide minimize and maximize buttons on mobile, keep close button */
+    .title-bar-controls button {
+        display: none;
+    }
+    .title-bar-controls button.close {
+        display: flex;
+    }
+
+    /* Make start menu full width and stack its contents */
+    .start-menu {
+        width: 100% !important;
+        left: 0 !important;
+        border-radius: 0 !important;
+        bottom: 30px !important;
+    }
+
+    .start-menu-content {
+        flex-direction: column;
+    }
+
+    .start-menu-left, .start-menu-right {
+        width: 100%;
+        border-right: none;
+    }
+    
+    .start-menu-left {
+        border-bottom: 1px solid #d6d6d6;
+    }
+
+    /* Ensure taskbar can scroll instead of compressing too much */
+    .taskbar-windows {
+        overflow-x: auto;
+    }
+    .taskbar-windows::-webkit-scrollbar {
+        display: none; /* Hide scrollbar in webkit browsers for custom taskbar */
+    }
+
+    /* Adjust system tray size on mobile */
+    .clock {
+        display: none;
+    }
+    .quick-launch {
+        display: none; /* Provide more space by removing empty quick launch divider */
+    }
+}
+
+/* Extra small mobile */
+@media screen and (max-width: 480px) {
+    .desktop-icons {
+        gap: 15px; /* Adjust spacing of desktop icons */
+    }
+    .taskbar-item {
+        min-width: 120px;
+    }
+}
+
