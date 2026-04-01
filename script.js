@@ -90,29 +90,38 @@ function bringToFront(name) {
 
 // Drag functionality
 let isDragging = false;
-let dragWindow = null;
+let dragElement = null;
 let dragOffsetX = 0;
 let dragOffsetY = 0;
 
 function startDrag(e, windowId) {
   isDragging = true;
-  dragWindow = document.getElementById(windowId);
-  const rect = dragWindow.getBoundingClientRect();
+  dragElement = document.getElementById(windowId);
+  const rect = dragElement.getBoundingClientRect();
   dragOffsetX = e.clientX - rect.left;
   dragOffsetY = e.clientY - rect.top;
   bringToFront(windowId.replace("window-", ""));
 }
 
+function startDragIcon(e, el) {
+  isDragging = true;
+  dragElement = el;
+  const rect = dragElement.getBoundingClientRect();
+  dragOffsetX = e.clientX - rect.left;
+  dragOffsetY = e.clientY - rect.top;
+  selectIcon(el);
+}
+
 document.addEventListener("mousemove", function (e) {
-  if (isDragging && dragWindow) {
-    dragWindow.style.left = e.clientX - dragOffsetX + "px";
-    dragWindow.style.top = e.clientY - dragOffsetY + "px";
+  if (isDragging && dragElement) {
+    dragElement.style.left = e.clientX - dragOffsetX + "px";
+    dragElement.style.top = e.clientY - dragOffsetY + "px";
   }
 });
 
 document.addEventListener("mouseup", function () {
   isDragging = false;
-  dragWindow = null;
+  dragElement = null;
 });
 
 // Taskbar

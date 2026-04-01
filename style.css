@@ -32,26 +32,28 @@ body {
     position: relative;
 }
 
-/* Desktop Icons */
+/* Desktop Icons Container */
 .desktop-icons {
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+    width: 100%;
+    height: 100%;
     position: absolute;
     top: 0;
     left: 0;
+    pointer-events: none; /* Let clicks pass through empty space to desktop */
 }
 
+/* Individual Icon */
 .icon {
     width: 75px;
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 5px;
-    cursor: pointer;
+    cursor: auto; /* Handled by pointer class below */
     border: 1px solid transparent;
     border-radius: 3px;
+    position: absolute;
+    pointer-events: auto; /* Re-enable clicks for icons */
 }
 
 .icon:hover {
